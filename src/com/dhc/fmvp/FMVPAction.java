@@ -16,7 +16,7 @@ public class FMVPAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent e) {
         project = e.getProject();
-        String className = Messages.showInputDialog(project, "请输入类名称", "NewMvpGroup", Messages.getQuestionIcon());
+        String className = Messages.showInputDialog(project, "请输入类名称", "新建FMVP模板", Messages.getQuestionIcon());
         selectGroup = DataKeys.VIRTUAL_FILE.getData(e.getDataContext());
         if (className == null || className.equals("")) {
             System.out.print("没有输入类名");
@@ -48,7 +48,7 @@ public class FMVPAction extends AnAction {
         String presenter = readFile("Presenter.txt")
                 .replace("&package&",  getPackageName(presenterPath))
                 .replace("&Module&", className)
-                .replace("&Contract&", className + "Contract")
+                .replace("&Contract&", "I"+className + "Contract")
                 .replace("&ContractPackageName&", getPackageName(contractPath))
                 .replace("&DataServicePackageName&", getPackageName(modlePath))
                 .replace("&Presenter&", className + "Presenter");
@@ -56,14 +56,14 @@ public class FMVPAction extends AnAction {
                 .replace("&package&",  getPackageName(modlePath))
                 .replace("&Module&", className)
                 .replace("&ContractPackageName&", getPackageName(contractPath))
-                .replace("&Contract&", className + "Contract");
+                .replace("&Contract&", "I"+className + "Contract");
 
         if (isFragment) {
             String fragment = readFile("Fragment.txt")
                     .replace("&package&",  getPackageName(uiPath))
                     .replace("&Fragment&", className + "Fragment")
                     .replace("&ContractPackageName&", getPackageName(contractPath))
-                    .replace("&Contract&", className + "Contract")
+                    .replace("&Contract&", "I"+className + "Contract")
                     .replace("&Presenter&", className + "Presenter");
             writetoFile(fragment, uiPath, className + "Fragment.java");
         } else if (isActivity){
@@ -71,7 +71,7 @@ public class FMVPAction extends AnAction {
                     .replace("&package&",  getPackageName(uiPath))
                     .replace("&Activity&", className + "Activity")
                     .replace("&ContractPackageName&", getPackageName(contractPath))
-                    .replace("&Contract&", className + "Contract")
+                    .replace("&Contract&", "I"+className + "Contract")
                     .replace("&Presenter&", className + "Presenter");
             writetoFile(activity, uiPath, className + "Activity.java");
         }

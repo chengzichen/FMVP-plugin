@@ -4,9 +4,9 @@ import com.dhc.library.base.IBasePresenter;
 import com.dhc.library.base.IBaseView;
 
 /**
- * 创建者：
- * 时间 ：
- * 描述 ：TODO 请描述该类职责
+ * @author
+ * @createDate
+ * @description
  */
 public interface &Contract& {
 

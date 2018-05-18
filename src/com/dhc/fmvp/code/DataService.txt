@@ -5,9 +5,9 @@ import javax.inject.Inject;
 import com.dhc.library.data.HttpHelper;
 import &ContractPackageName&.&Contract&;
 /**
- * 创建者
- * 创建时间
- * 描述
+ * @author
+ * @createDate
+ * @description
  */
 
 public class &Module&RemoteDataService  implements &Contract&.IModle {

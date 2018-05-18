@@ -5,9 +5,9 @@ import android.view.View;
 import com.dhc.library.base.XDaggerFragment;
 import &ContractPackageName&.&Contract&;
 /**
- * 创建者
- * 创建时间
- * 描述
+ * @author
+ * @createDate
+ * @description
  */
 
 public class &Fragment& extends XDaggerFragment<&Contract&.IPresenter> implements &Contract&.IView {
@@ -25,4 +25,13 @@ public class &Fragment& extends XDaggerFragment<&Contract&.IPresenter> implement
     public void initInject(Bundle savedInstanceState) {
 
     }
+      @Override
+      public void success(Object data) {
+
+      }
+
+      @Override
+      public void failure(String code, String msg) {
+
+      }
 }

@@ -2,10 +2,12 @@ package &package&;
 
 import &ContractPackageName&.&Contract&;
 import &DataServicePackageName&.&Module&RemoteDataService;
+import javax.inject.Inject;
+import com.dhc.library.base.XPresenter;
 /**
- * 创建者
- * 创建时间
- * 描述
+ * @author
+ * @createDate
+ * @description
  */
 
 public class &Module&Presenter extends XPresenter<&Contract&.IView> implements &Contract&.IPresenter {

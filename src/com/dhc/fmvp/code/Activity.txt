@@ -5,9 +5,9 @@ import android.os.Bundle;
 import com.dhc.library.base.XDaggerActivity;
 import &ContractPackageName&.&Contract&;
 /**
- * 创建者
- * 创建时间
- * 描述	      ${TODO}
+ * @author
+ * @createDate
+ * @description
  */
 public class &Activity& extends XDaggerActivity<&Contract&.IPresenter> implements &Contract&.IView {
   @Override
@@ -24,4 +24,13 @@ public class &Activity& extends XDaggerActivity<&Contract&.IPresenter> implement
     public void initInject(Bundle savedInstanceState) {
 
     }
+      @Override
+      public void success(Object data) {
+
+      }
+
+      @Override
+      public void failure(String code, String msg) {
+
+      }
 }
