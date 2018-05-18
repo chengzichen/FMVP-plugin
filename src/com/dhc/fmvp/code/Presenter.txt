@@ -1,0 +1,21 @@
+package &package&;
+
+import &ContractPackageName&.&Contract&;
+import &DataServicePackageName&.&Module&RemoteDataService;
+/**
+ * 创建者
+ * 创建时间
+ * 描述
+ */
+
+public class &Module&Presenter extends XPresenter<&Contract&.IView> implements &Contract&.IPresenter {
+
+    private &Module&RemoteDataService m&Module&RemoteDataService;
+
+    @Inject
+    public &Module&Presenter(&Module&RemoteDataService &Module&RemoteDataService) {
+        m&Module&RemoteDataService = &Module&RemoteDataService;
+    }
+
+
+}

@@ -1,0 +1,28 @@
+package &package&;
+
+import android.os.Bundle;
+import android.view.View;
+import com.dhc.library.base.XDaggerFragment;
+import &ContractPackageName&.&Contract&;
+/**
+ * 创建者
+ * 创建时间
+ * 描述
+ */
+
+public class &Fragment& extends XDaggerFragment<&Contract&.IPresenter> implements &Contract&.IView {
+   @Override
+    protected int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    protected void initEventAndData(View view) {
+
+    }
+
+    @Override
+    public void initInject(Bundle savedInstanceState) {
+
+    }
+}

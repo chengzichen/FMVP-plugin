@@ -1,0 +1,27 @@
+package &package&;
+
+import android.os.Bundle;
+
+import com.dhc.library.base.XDaggerActivity;
+import &ContractPackageName&.&Contract&;
+/**
+ * 创建者
+ * 创建时间
+ * 描述	      ${TODO}
+ */
+public class &Activity& extends XDaggerActivity<&Contract&.IPresenter> implements &Contract&.IView {
+  @Override
+    protected int getLayout() {
+        return 0;
+    }
+
+    @Override
+    protected void initEventAndData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void initInject(Bundle savedInstanceState) {
+
+    }
+}
