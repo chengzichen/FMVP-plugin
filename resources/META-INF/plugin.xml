@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.dhc.fmvp</id>
   <name>FMVPPlugin</name>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <vendor email="13340199938@163.com" url="https://github.com/chengzichen/Flyabbit">好酷科技</vendor>
 
   <description><![CDATA[
@@ -30,7 +30,7 @@
 
   <actions>
     <!-- Add your actions here -->
-    <action id="FMVP.FMVPAction" class="com.dhc.fmvp.FMVPAction" text="newMvpFile">
+    <action id="FMVP.FMVPAction" class="com.dhc.fmvp.FMVPAction" text="newFMvpFile">
       <add-to-group group-id="NewGroup" anchor="last"/>
     </action>
   </actions>

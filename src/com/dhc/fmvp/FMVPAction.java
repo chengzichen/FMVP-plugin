@@ -1,8 +1,6 @@
 package com.dhc.fmvp;
 
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.DataKeys;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -14,26 +12,59 @@ public class FMVPAction extends AnAction {
     VirtualFile selectGroup;
 
     @Override
+    public void update(AnActionEvent event) {
+        super.update(event);
+        Presentation presentation = event.getPresentation();
+        if (isRightPackage(event)) {
+            presentation.setEnabledAndVisible(true);
+        } else {
+            presentation.setEnabledAndVisible(false);
+        }
+    }
+
+
+    @Override
     public void actionPerformed(AnActionEvent e) {
         project = e.getProject();
         String className = Messages.showInputDialog(project, "请输入类名称", "新建FMVP模板", Messages.getQuestionIcon());
-        selectGroup = DataKeys.VIRTUAL_FILE.getData(e.getDataContext());
-        if (className == null || className.equals("")) {
-            System.out.print("没有输入类名");
+        if (isEmpty(className == null, className.equals(""))) {
+            Messages.showErrorDialog(
+                    "You have to type in something.",
+                    "content is empty");
             return;
         }
         createClassMvp(className);
         project.getBaseDir().refresh(false, true);
     }
 
+    private boolean isEmpty(boolean b, boolean equals) {
+        return b || equals;
+    }
+
+
+    private boolean isRightPackage(AnActionEvent actionEvent) {
+        selectGroup = DataKeys.VIRTUAL_FILE.getData(actionEvent.getDataContext());
+        String packageName = selectGroup.getPath();
+        System.out.println("packageName"+ packageName);
+        if (packageName==null||packageName.equals(""))
+            return false;
+        String[] subPackages = packageName.split("\\/");
+        for (String subPackage : subPackages) {
+            if (subPackage.endsWith("java")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * 根据模块生成代码
+     *
      * @param className
      */
     private void createClassMvp(String className) {
-        boolean isFragment = className.endsWith("Fragment") || className.endsWith("fragment");
-        boolean isActivity =className.endsWith("Activity") || className.endsWith("activity");
+        boolean isFragment = isEmpty(className.endsWith("Fragment"), className.endsWith("fragment"));
+        boolean isActivity = isEmpty(className.endsWith("Activity"), className.endsWith("activity"));
         if (className.endsWith("Fragment") || className.endsWith("fragment") || className.endsWith("Activity") || className.endsWith("activity")) {
             className = className.substring(0, className.length() - 8);
         }
@@ -44,38 +75,38 @@ public class FMVPAction extends AnAction {
         className = className.substring(0, 1).toUpperCase() + className.substring(1);
         String contract = readFile("Contract.txt")
                 .replace("&package&", getPackageName(contractPath))
-                .replace("&Contract&", "I"+className + "Contract");
+                .replace("&Contract&", "I" + className + "Contract");
         String presenter = readFile("Presenter.txt")
-                .replace("&package&",  getPackageName(presenterPath))
+                .replace("&package&", getPackageName(presenterPath))
                 .replace("&Module&", className)
-                .replace("&Contract&", "I"+className + "Contract")
+                .replace("&Contract&", "I" + className + "Contract")
                 .replace("&ContractPackageName&", getPackageName(contractPath))
                 .replace("&DataServicePackageName&", getPackageName(modlePath))
                 .replace("&Presenter&", className + "Presenter");
         String dataService = readFile("DataService.txt")
-                .replace("&package&",  getPackageName(modlePath))
+                .replace("&package&", getPackageName(modlePath))
                 .replace("&Module&", className)
                 .replace("&ContractPackageName&", getPackageName(contractPath))
-                .replace("&Contract&", "I"+className + "Contract");
+                .replace("&Contract&", "I" + className + "Contract");
 
         if (isFragment) {
             String fragment = readFile("Fragment.txt")
-                    .replace("&package&",  getPackageName(uiPath))
+                    .replace("&package&", getPackageName(uiPath))
                     .replace("&Fragment&", className + "Fragment")
                     .replace("&ContractPackageName&", getPackageName(contractPath))
-                    .replace("&Contract&", "I"+className + "Contract")
+                    .replace("&Contract&", "I" + className + "Contract")
                     .replace("&Presenter&", className + "Presenter");
             writetoFile(fragment, uiPath, className + "Fragment.java");
-        } else if (isActivity){
+        } else if (isActivity) {
             String activity = readFile("Activity.txt")
-                    .replace("&package&",  getPackageName(uiPath))
+                    .replace("&package&", getPackageName(uiPath))
                     .replace("&Activity&", className + "Activity")
                     .replace("&ContractPackageName&", getPackageName(contractPath))
-                    .replace("&Contract&", "I"+className + "Contract")
+                    .replace("&Contract&", "I" + className + "Contract")
                     .replace("&Presenter&", className + "Presenter");
             writetoFile(activity, uiPath, className + "Activity.java");
         }
-        writetoFile(contract, contractPath, "I"+className + "Contract.java");
+        writetoFile(contract, contractPath, "I" + className + "Contract.java");
         writetoFile(presenter, presenterPath, className + "Presenter.java");
         writetoFile(dataService, modlePath, className + "RemoteDataService.java");
     }
